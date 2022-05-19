@@ -3,7 +3,7 @@
 echo.
 echo =================================================
 echo   管理者権限で実行する必要があるため
-echo   ユーザアクセス制御(UAC)ダイアログが表示されたら
+echo   ユーザアカウント制御(UAC)ダイアログが表示されたら
 echo   「はい」をクリックしてください。
 echo =================================================
 echo.
@@ -13,6 +13,12 @@ if not "%LEVEL%"=="High" (
 powershell -NoProfile -ExecutionPolicy Unrestricted -Command "Start-Process \"%~f0\" -Verb runas"
 exit
 )
+
+rem Windows Timeを自動実行に変更
+rem sc triggerinfo w32time delete
+rem sc config w32time start= delayed-auto
+rem sc qc w32time
+rem pause
 
 rem Windows Timeサービス (W32Time) 状態判定
 sc query W32Time | findstr STATE | findstr RUNNING > NUL
