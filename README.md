@@ -1,0 +1,2 @@
+# ntpsync
+NTP synchronization script
